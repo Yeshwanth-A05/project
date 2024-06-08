@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        * {
+            font-family: "Gotham Rounded Book", "sans-serif";
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            color: #eee;
+        }
+
+        ::selection {
+            background: 0;
+        }
+
+        body {
+            width: 100%;
+            min-height: 560px;
+            height: 100vh;
+            display: grid;
+            place-content: center;
+            overflow-x: hidden;
+            background: url('https://wallpapers.com/images/high/cool-dark-wooden-wall-uqxzonyuol5hwv8y.webp') no-repeat center center fixed;
+            background-size: cover;
+            overflow-x: hidden;
+        }
+
+        section {
+            min-width: 450px;
+            min-height: 520px;
+            padding: 15px;
+            box-shadow: rgb(38, 57, 77) 30px 30px 30px -10px;
+            border-radius: 10px;
+            background: #2c2d31;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #logo {
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            margin: 30px;
+        }
+
+        nav {
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav label {
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        nav label:first-child {
+            margin-right: 20px;
+        }
+
+        form {
+            position: absolute;
+            min-width: 320px;
+            transform: translatex(140%);
+            display: flex;
+            flex-direction: column;
+            transition: 0.3s;
+        }
+
+        #SignIn:checked ~ section #SignInFormData,
+        #SignUp:checked ~ section #SignUpFormData {
+            transform: translatex(15%);
+        }
+
+        #SignIn:checked ~ section nav label:first-child,
+        #SignUp:checked ~ section nav label:last-child {
+            margin-bottom: -2px;
+            border-bottom: 2px solid #1ed760;
+        }
+
+        input,
+        button {
+            color: #111;
+            border-radius: 50px;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+        button {
+            background: #1ed760;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        form span {
+            margin-left: 20px;
+            display: inline;
+        }
+
+        form span label {
+            cursor: pointer;
+            font-size: 14px;
+            text-transform: lowercase;
+        }
+
+        input[type="checkbox"] {
+            cursor: pointer;
+            accent-color: #1ed760;
+        }
+
+        a {
+            font-weight: bold;
+            text-decoration: none;
+            margin-top: 20px;
+            cursor: pointer;
+            text-align: center;
+            opacity: 0.6;
+        }
+
+        a:hover {
+            opacity: 1;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <input type="radio" name="optionScreen" id="SignIn" hidden checked>
+    <input type="radio" name="optionScreen" id="SignUp" hidden>
+
+    <section>
+        <div id="logo">
+            <img src="https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-icon-marilyn-scott-0.png" alt="Spotify-Logo" width="50">
+            <h1>Spotify</h1>
+        </div>
+
+        <nav>
+            <label for="SignIn">Sign In</label>
+            <label for="SignUp">Sign Up</label>
+        </nav>
+
+        <form id="SignInFormData" onsubmit="return validateSignInForm(event)">
+            <input type="text" id="username" placeholder="Username">
+            <div class="error" id="usernameError"></div>
+            <input type="password" id="password" placeholder="Password">
+            <div class="error" id="passwordError"></div>
+            <span>
+                <input type="checkbox" id="staySignedIn" checked>
+                <label for="staySignedIn">Stay Signed In</label>
+            </span>
+            <button type="submit" title="Sign In">Sign In</button>
+            <a id="forgotPassword">Forgot Your Password?</a>
+        </form>
+
+        <form id="SignUpFormData" onsubmit="return validateSignUpForm(event)">
+            <input type="text" id="name" placeholder="Name">
+            <div class="error" id="nameError"></div>
+            <input type="email" id="email" placeholder="E-mail">
+            <div class="error" id="emailError"></div>
+            <input type="password" id="newPassword" placeholder="New Password">
+            <div class="error" id="newPasswordError"></div>
+            <input type="password" id="confirmPassword" placeholder="Confirm Password">
+            <div class="error" id="confirmPasswordError"></div>
+            <span>
+                <input type="checkbox" id="staySignedUp" checked>
+                <label for="staySignedUp">Stay Signed Up</label>
+            </span>
+            <button type="submit" title="Sign Up">Sign Up</button>
+        </form>
+    </section>
+
+    <script>
+        function validateSignInForm(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            let isValid = true;
+
+            // Clear previous error messages
+            document.getElementById('usernameError').innerText = '';
+            document.getElementById('passwordError').innerText = '';
+
+            // Validate username
+            if (!username) {
+                document.getElementById('usernameError').innerText = 'Username is required';
+                isValid = false;
+            }
+
+            // Validate password
+            if (!password) {
+                document.getElementById('passwordError').innerText = 'Password is required';
+                isValid = false;
+            }
+
+            // Redirect if valid
+            if (isValid) {
+                window.location.href = 'https://yeshwanth-a05.github.io/playlist1/';
+            }
+
+            return false;
+        }
+
+        function validateSignUpForm(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            let isValid = true;
+
+            // Clear previous error messages
+            document.getElementById('nameError').innerText = '';
+            document.getElementById('emailError').innerText = '';
+            document.getElementById('newPasswordError').innerText = '';
+            document.getElementById('confirmPasswordError').innerText = '';
+
+            // Validate name
+            if (!name) {
+                document.getElementById('nameError').innerText = 'Name is required';
+                isValid = false;
+            }
+
+            // Validate email
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email) {
+                document.getElementById('emailError').innerText = 'Email is required';
+                isValid = false;
+            } else if (!emailPattern.test(email)) {
+                document.getElementById('emailError').innerText = 'Invalid email format';
+                isValid = false;
+            }
+
+            // Validate password
+            if (!newPassword) {
+                document.getElementById('newPasswordError').innerText = 'New Password is required';
+                isValid = false;
+            } else if (newPassword !== confirmPassword) {
+                document.getElementById('confirmPasswordError').innerText = 'Passwords do not match';
+                isValid = false;
+            }
+
+            // Redirect if valid
+            if (isValid) {
+                window.location.href = 'https://yeshwanth-a05.github.io/playlist1/';
+            }
+
+            return false;
+        }
+    </script>
+</body>
+</html>
